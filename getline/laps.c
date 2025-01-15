@@ -1,5 +1,9 @@
 #include "laps.h"
 
+/**
+ * @param id: array of ids of cars
+ * @param size: size of the array
+ */
 void race_state(int *id, size_t size)
 {
 	// Define a static pointer to store lap counts and car ids dynamically
@@ -18,16 +22,18 @@ void race_state(int *id, size_t size)
 		return;
 	}
 
+	size_t a;
 	// Process each car ID and add if not already present
-	for (int i = 0; i < size; i++)
+	for (a = 0; a < size; a++)
 	{
-		int car_id = id[i];
+		int car_id = id[a];
 		int car_found = 0;
 
+		size_t b;
 		// Check if car already exists
-		for (int j = 0; j < num_cars; j++)
+		for (b = 0; b < num_cars; b++)
 		{
-			if (car_ids[j] == car_id)
+			if (car_ids[b] == car_id)
 			{
 				car_found = 1;
 				break;
@@ -53,9 +59,11 @@ void race_state(int *id, size_t size)
 	}
 
 	// Increment laps for each car given in id
-	for (int i = 0; i < num_cars; i++)
+	size_t i;
+	for (i = 0; i < num_cars; i++)
 	{
-		for (int j = 0; j < size; j++)
+		size_t j;
+		for (j = 0; j < size; j++)
 		{
 			if (car_ids[i] == id[j])
 			{
@@ -67,29 +75,32 @@ void race_state(int *id, size_t size)
 	// Print the state of the race sorted by car identifier
 	printf("Race state:\n");
 
+	size_t k;
 	// Sort by car ID (ascending order)
-	for (int i = 0; i < num_cars - 1; i++)
+	for (k = 0; k < num_cars - 1; k++)
 	{
-		for (int j = i + 1; j < num_cars; j++)
+		size_t l;
+		for (l = k + 1; l < num_cars; l++)
 		{
-			if (car_ids[i] > car_ids[j])
+			if (car_ids[k] > car_ids[l])
 			{
 				// Swap ids
-				int temp_id = car_ids[i];
-				car_ids[i] = car_ids[j];
-				car_ids[j] = temp_id;
+				int temp_id = car_ids[k];
+				car_ids[k] = car_ids[l];
+				car_ids[l] = temp_id;
 
 				// Swap lap counts
-				int temp_laps = car_laps[i];
-				car_laps[i] = car_laps[j];
-				car_laps[j] = temp_laps;
+				int temp_laps = car_laps[k];
+				car_laps[k] = car_laps[l];
+				car_laps[l] = temp_laps;
 			}
 		}
 	}
 
+	size_t m;
 	// Print the state of the race
-	for (int i = 0; i < num_cars; i++)
+	for (m = 0; m < num_cars; m++)
 	{
-		printf("Car %d [%d laps]\n", car_ids[i], car_laps[i]);
+		printf("Car %d [%d laps]\n", car_ids[m], car_laps[m]);
 	}
 }
