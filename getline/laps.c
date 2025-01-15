@@ -10,6 +10,13 @@ void race_state(int *id, size_t size)
 	static int *car_laps = NULL;
 	static int *car_ids = NULL;
 	static int num_cars = 0;
+	size_t a;
+	int b;
+	int i;
+	size_t j;
+	int k;
+	int l;
+	int m;
 
 	/* If size is zero, free the allocated memory and stop */
 	if (size == 0)
@@ -22,14 +29,12 @@ void race_state(int *id, size_t size)
 		return;
 	}
 
-	size_t a;
 	/* Process each car ID and add if not already present */
 	for (a = 0; a < size; a++)
 	{
 		int car_id = id[a];
 		int car_found = 0;
 
-		size_t b;
 		/* Check if car already exists */
 		for (b = 0; b < num_cars; b++)
 		{
@@ -59,10 +64,8 @@ void race_state(int *id, size_t size)
 	}
 
 	/* Increment laps for each car given in id */
-	size_t i;
 	for (i = 0; i < num_cars; i++)
 	{
-		size_t j;
 		for (j = 0; j < size; j++)
 		{
 			if (car_ids[i] == id[j])
@@ -75,29 +78,27 @@ void race_state(int *id, size_t size)
 	/* Print the state of the race sorted by car identifier */
 	printf("Race state:\n");
 
-	size_t k;
 	/* Sort by car ID (ascending order) */
 	for (k = 0; k < num_cars - 1; k++)
 	{
-		size_t l;
 		for (l = k + 1; l < num_cars; l++)
 		{
 			if (car_ids[k] > car_ids[l])
 			{
-				/* Swap ids */
 				int temp_id = car_ids[k];
+				int temp_laps = car_laps[k];
+
+				/* Swap ids */
 				car_ids[k] = car_ids[l];
 				car_ids[l] = temp_id;
 
 				/* Swap lap counts */
-				int temp_laps = car_laps[k];
 				car_laps[k] = car_laps[l];
 				car_laps[l] = temp_laps;
 			}
 		}
 	}
 
-	size_t m;
 	/* Print the state of the race */
 	for (m = 0; m < num_cars; m++)
 	{
