@@ -1,6 +1,26 @@
 #include "_getline.h"
 
 /**
+ * reset - resets all statics vars and frees everything
+ * @buffer: the buffer variable to free
+ * @bytes_in_buffer: static variable to reset to 0
+ * @buffer_index: static variable to reset to 0
+ * @line: the line variable to free
+ * Return: always NULL
+ */
+void *reset(char buffer[], ssize_t *bytes_in_buffer,
+		   ssize_t *buffer_index, char *line)
+{
+	free(buffer);
+	buffer = NULL;
+	*bytes_in_buffer = 0;
+	*buffer_index = 0;
+	free(line);
+	line = NULL;
+	return (NULL);
+}
+
+/**
  * _getline - returns a line from the given file descriptor
  * @fd: file descriptor to read from
  * Return: a null-terminated string that does not include the newline character
@@ -15,7 +35,7 @@ char *_getline(const int fd)
 	size_t line_size = 0;
 
 	if (fd < 0)
-		return (NULL);
+		return (reset(buffer, &bytes_in_buffer, &buffer_index, line));
 	while (1)
 	{
 		if (buffer_index >= bytes_in_buffer)
@@ -41,7 +61,7 @@ char *_getline(const int fd)
 				return (line);
 			} /* reallocate line to fit one more char (plus null-terminator) */
 			line = realloc(line, line_size + 2);
-			if (line == NULL) /* if realloc failed.. */
+			if (line == NULL) /* if realloc failed... */
 				return (NULL); /* return null to indicate error */
 			/* add this character to the line and null-terminate it */
 			line[line_size++] = c;
