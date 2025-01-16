@@ -13,6 +13,7 @@ char *_getline(const int fd)
 	static ssize_t buffer_index;
 	char *line = NULL;
 	size_t line_size = 0;
+
 	if (fd < 0)
 		return (NULL);
 	while (1)
@@ -27,6 +28,7 @@ char *_getline(const int fd)
 		while (buffer_index < bytes_in_buffer)
 		{
 			char c = buffer[buffer_index++];
+
 			if (c == '\n') /* return line once a newline is found */
 			{
 				if (line == NULL)
