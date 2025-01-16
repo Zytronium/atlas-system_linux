@@ -45,6 +45,11 @@ char *_getline(const int fd) {
 				if (line == NULL) {
 					/* set line as empty str to avoid indicating EOF */
 					line = malloc(1);
+					if (line == NULL)
+					{
+						/* indicate error if malloc fails */
+						return (NULL);
+					}
 					line[0] = '\0';
 				}
 				return (line);
