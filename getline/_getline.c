@@ -11,8 +11,7 @@
 void *reset(char buffer[], ssize_t *bytes_in_buffer,
 		   ssize_t *buffer_index, char *line)
 {
-	free(buffer);
-	buffer = NULL;
+	memset(buffer, 0, sizeof(*buffer));
 	*bytes_in_buffer = 0;
 	*buffer_index = 0;
 	free(line);
