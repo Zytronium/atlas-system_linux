@@ -9,10 +9,10 @@
 char *_getline(const int fd)
 {
 	static char buffer[READ_SIZE];
-	static ssize_t bytes_in_buffer;
-	static ssize_t buffer_index;
+	static ssize_t bytes_in_buffer = 0;
+	static ssize_t buffer_index = 0;
 	char *line = NULL;
-	size_t line_size;
+	size_t line_size = 0;
 
 	if (fd <0)
 	{
