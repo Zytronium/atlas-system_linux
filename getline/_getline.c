@@ -1,16 +1,18 @@
 #include "_getline.h"
 
 /**
+ * _getline - returns a line from the given file descriptor
  * @fd: file descriptor to read from
  * return: a null-terminated string that does not include the newline character
  * or NULL if there are no more lines to return or if there's an error
  */
-char *_getline(const int fd) {
+char *_getline(const int fd)
+{
 	static char buffer[READ_SIZE];
-	static ssize_t bytes_in_buffer = 0;
-	static ssize_t buffer_index = 0;
+	static ssize_t bytes_in_buffer;
+	static ssize_t buffer_index;
 	char *line = NULL;
-	size_t line_size = 0;
+	size_t line_size;
 
 	if (fd <0)
 	{
@@ -42,7 +44,8 @@ char *_getline(const int fd) {
 				/* if line is empty, it hasn't been allocated yet. */
 				/* but since the 1st char is \n, we shouldn't return null */
 				/* because that would indicate that it reached EOF. */
-				if (line == NULL) {
+				if (line == NULL)
+				{
 					/* set line as empty str to avoid indicating EOF */
 					line = malloc(1);
 					if (line == NULL)
@@ -65,7 +68,7 @@ char *_getline(const int fd) {
 
 			/* add this character to the line and null-terminate it */
 			line[line_size++] = c;
-			line[line_size]= '\0';
+			line[line_size] = '\0';
 		}
 	}
 }
