@@ -3,18 +3,18 @@
 /**
  * _getline - returns a line from the given file descriptor
  * @fd: file descriptor to read from
- * return: a null-terminated string that does not include the newline character
+ * Return: a null-terminated string that does not include the newline character
  * or NULL if there are no more lines to return or if there's an error
  */
 char *_getline(const int fd)
 {
 	static char buffer[READ_SIZE];
-	static ssize_t bytes_in_buffer = 0;
-	static ssize_t buffer_index = 0;
+	static ssize_t bytes_in_buffer;
+	static ssize_t buffer_index;
 	char *line = NULL;
 	size_t line_size = 0;
 
-	if (fd <0)
+	if (fd < 0)
 	{
 		return (NULL);
 	}
